@@ -31,7 +31,8 @@ from importlib import metadata
 from pudb.settings import load_config
 
 
-VERSION = metadata.version("pudb")
+# VERSION = metadata.version("pudb")
+VERSION = '2024.1.3'
 _ver_match = re.match("^([0-9.]+)([a-z0-9]*?)$", VERSION)
 assert _ver_match
 NUM_VERSION = tuple(int(nr) for nr in _ver_match.group(1).split("."))

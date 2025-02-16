@@ -25,15 +25,15 @@ Direct terminal UI implementation
 from __future__ import annotations
 
 import contextlib
-import fcntl
+# import fcntl
 import functools
 import os
 import selectors
 import signal
 import struct
 import sys
-import termios
-import tty
+# import termios
+# import tty
 import typing
 from subprocess import PIPE, Popen
 
@@ -161,7 +161,7 @@ class Screen(_raw_display_base.Screen):
             close_fds=True,
             encoding="ascii",
         )
-        fcntl.fcntl(m.stdout.fileno(), fcntl.F_SETFL, os.O_NONBLOCK)
+        # fcntl.fcntl(m.stdout.fileno(), fcntl.F_SETFL, os.O_NONBLOCK)
         self.gpm_mev = m
 
     def _stop_gpm_tracking(self) -> None:
@@ -191,8 +191,9 @@ class Screen(_raw_display_base.Screen):
 
         fd = self._input_fileno()
         if fd is not None and os.isatty(fd):
-            self._old_termios_settings = termios.tcgetattr(fd)
-            tty.setcbreak(fd)
+            pass
+            # self._old_termios_settings = termios.tcgetattr(fd)
+            # tty.setcbreak(fd)
 
         self.signal_init()
         self._alternate_buffer = alternate_buffer
@@ -227,7 +228,8 @@ class Screen(_raw_display_base.Screen):
 
         fd = self._input_fileno()
         if fd is not None and os.isatty(fd):
-            termios.tcsetattr(fd, termios.TCSAFLUSH, self._old_termios_settings)
+            pass
+            # termios.tcsetattr(fd, termios.TCSAFLUSH, self._old_termios_settings)
 
         if self._old_signal_keys:
             self.tty_signal_keys(*self._old_signal_keys, fd)
@@ -403,8 +405,9 @@ class Screen(_raw_display_base.Screen):
         y, x = super().get_cols_rows()
         with contextlib.suppress(OSError):  # Term size could not be determined
             if hasattr(self._term_output_file, "fileno"):
-                buf = fcntl.ioctl(self._term_output_file.fileno(), termios.TIOCGWINSZ, b" " * 4)
-                y, x = struct.unpack("hh", buf)
+                pass
+                # buf = fcntl.ioctl(self._term_output_file.fileno(), termios.TIOCGWINSZ, b" " * 4)
+                # y, x = struct.unpack("hh", buf)
 
         # Provide some lightweight fallbacks in case the TIOCWINSZ doesn't
         # give sane answers

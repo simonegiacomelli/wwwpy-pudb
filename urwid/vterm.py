@@ -24,14 +24,14 @@ from __future__ import annotations
 import atexit
 import copy
 import errno
-import fcntl
+# import fcntl
 import os
-import pty
+# import pty
 import selectors
 import signal
 import struct
 import sys
-import termios
+# import termios
 import time
 import traceback
 import typing
@@ -1562,7 +1562,7 @@ class Terminal(Widget):
     def spawn(self) -> None:
         env = self.env
         env["TERM"] = "linux"
-
+        raise Exception("Not implemented")
         self.pid, self.master = pty.fork()
 
         if self.pid == 0:
@@ -1579,8 +1579,8 @@ class Terminal(Widget):
             else:
                 os.execvpe(self.command[0], self.command, env)  # noqa: S606
 
-        if self.main_loop is None:
-            fcntl.fcntl(self.master, fcntl.F_SETFL, os.O_NONBLOCK)
+        # if self.main_loop is None:
+        #     fcntl.fcntl(self.master, fcntl.F_SETFL, os.O_NONBLOCK)
 
         atexit.register(self.terminate)
 
@@ -1628,7 +1628,7 @@ class Terminal(Widget):
 
     def set_termsize(self, width: int, height: int) -> None:
         winsize = struct.pack("HHHH", height, width, 0, 0)
-        fcntl.ioctl(self.master, termios.TIOCSWINSZ, winsize)
+        # fcntl.ioctl(self.master, termios.TIOCSWINSZ, winsize)
 
     def touch_term(self, width: int, height: int) -> None:
         process_opened = False
