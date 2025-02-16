@@ -3,7 +3,13 @@
 Remember to start Pycharm run config, because it is a customized wwwpy config (to include pudb, urwid, urwid_readline and wcwidth)
 see wwwpy_dev.py in this repo.
 
+## PuDB remote debugging
 
+The following command is to open a local port for pudb remote debugging to show up
+`stty -echo -icanon && nc -l -p 6899`
+
+See more here:
+https://documen.tician.de/pudb/starting.html#reverse-remote-debugging
 
 # Next Steps
 
